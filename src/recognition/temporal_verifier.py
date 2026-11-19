@@ -25,10 +25,10 @@ class TemporalVerifier:
         cooldown=2.0
     ):
         # Các tham số cấu hình
-        self.confidence_threshold = confidence_threshold
-        self.stable_frames = stable_frames
-        self.sequence_timeout = sequence_timeout
-        self.cooldown = cooldown
+        self.confidence_threshold = confidence_threshold # Ngưỡng confidence để chấp nhận cử chỉ
+        self.stable_frames = stable_frames # Quy định số frame cần ổn định để xác minh cử chỉ đúng
+        self.sequence_timeout = sequence_timeout # thời gian tối đa để hoàn thành chuỗi SOS, nếu quá sẽ reset
+        self.cooldown = cooldown # thời gian hồi SOS
 
         # Chuỗi cử chỉ SOS cần xác minh
         self.sequence = [
@@ -36,10 +36,9 @@ class TemporalVerifier:
             "THUMB_TUCKED",
             "THUMB_ENCLOSED"
         ]
-
-        # Trạng thái FSM: số cử chỉ đã hoàn thành
+        # theo dõi xem người dùng đã đi qua được mấy bước trong chuỗi.
         self.stage = 0
-
+        
         # Lưu các nhãn gần nhất để kiểm tra độ ổn định
         self.recent_labels = deque(maxlen=stable_frames)
 
@@ -100,7 +99,7 @@ class TemporalVerifier:
                 stage: Số bước SOS đã hoàn thành.
         """
 
-        # 1. KIỂM TRA COOLDOWN
+        # 1. KIỂM TRA COOLDOWN - 
         if self.last_confirmation_time is not None:
 
             elapsed = timestamp - self.last_confirmation_time
@@ -111,7 +110,7 @@ class TemporalVerifier:
             # Hết cooldown: chuẩn bị cho chuỗi SOS mới
             self.reset_all()
 
-        # 2. KIỂM TRA SEQUENCE TIMEOUT
+        # 2. KIỂM TRA SEQUENCE TIMEOUT - thời
         if self.sequence_start_time is not None:
 
             elapsed = timestamp - self.sequence_start_time
