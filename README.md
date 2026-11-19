@@ -13,8 +13,20 @@
 
 `OPEN_PALM → THUMB_TUCKED → THUMB_ENCLOSED → SOS_CONFIRMED`
 
+## Demo
+
+The following images illustrate the real-time SOS gesture recognition process:
+
+| Step 1 – OPEN_PALM | Step 2 – THUMB_TUCKED |
+|:---:|:---:|
+| ![OPEN_PALM](docs/images/demo_01_open_palm.png) | ![THUMB_TUCKED](docs/images/demo_02_thumb_tucked.png) |
+
+| Step 3 – THUMB_ENCLOSED | Step 4 – SOS_CONFIRMED |
+|:---:|:---:|
+| ![THUMB_ENCLOSED](docs/images/demo_03_thumb_enclosed.png) | ![SOS_CONFIRMED](docs/images/demo_04_sos_confirmed.png) |
+
 ## Technologies
-- Python
+- Python version 3.11.9
 - OpenCV
 - MediaPipe
 - Scikit-learn
